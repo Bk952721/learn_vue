@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >{{}}语法+v-once属性---【v-once指令，v-test指令，v-html指令】</title >
+</head >
+<body >
+<div id="app">
+<!--  mustache语 {{}}  -->
+    <div>
+        mustache语【也成为双换括号】： 在挂载后能直接展示data里面的数据
+        <p>{{test}}</p>
+        可以执行表达式，三元运算符，还能调用methods函数[要加（）]
+        <p>{{num+1}}</p>
+        <p>{{num>0?"大于零":"小于或等于0"}}</p>
+        <p>{{test01()}}</p>
+    </div>
+<!-- v-once[指令]  像属性一样在元素标签里添加 -->
+    <div>
+        <p v-once>{{message}}</p>
+        <button @click="btn1">点击后改变生草的人生</button >
+    </div>
+<!-- v-text[指令]   -->
+    <div>
+<!--和{{}}类似  不过不然{{}}灵活 -->
+        <p v-text="textcs"></p>
+    </div>
+<!-- v-html  默认情况vue不会解析本身是html的内容 -->
+    <div>
+        <p>{{testvh}}</p>
+        <p v-html="testvh"></p>
+    </div>
+
+
+</div>
+
+
+</body >
+<script src="../js/vue.js"></script>
+<script >
+    const app=Vue.createApp({
+      data(){
+        return{
+          test:'测试展示数据',
+          num:0,
+          message:'生草的人生',
+          textcs:'v-test案例',
+          testvh:'<h1>展示h1级别的标签</h1>'
+        }
+      },
+      methods:{
+        test01(){
+          console.log("被{{}}调用了")
+        },
+        btn1(){
+          this.message='改变世界'
+          console.log("上面添加的v-once就只渲染一次 点击了就不能改变了")
+        }
+
+      }
+    })
+    app.mount('#app')
+
+</script >
+</html >

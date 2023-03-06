@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >Document</title >
+</head >
+<body >
+
+<!--在这里挂载 app常量-->
+<div id="app">
+    <p>{{message}}</p>
+    <ul v-for="index in move" >
+        <li>{{index}}</li>
+
+    </ul>
+</div>
+
+</body >
+<script src="../js/vue.js"></script >
+<script>
+  // 创建 app实例
+  const app=Vue.createApp({
+    // template:"<h2>哈哈哈哈哈</h2>"   注意：如果在这里定义的template  对应的元素里的内容会被覆盖
+    data(){
+      return {
+        message:'哈哈哈',
+        move:['黄运彬','谭零东','谭芸荟']
+      }
+    }
+  })
+
+  // 挂载app这个常量
+  app.mount('#app')
+
+</script>
+</html >

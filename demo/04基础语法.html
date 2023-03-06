@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >v-pre + v-cloak + v-bind【重要】+v-memo+ v-bind </title >
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .a1{
+            color: red;
+            font-size: 20px;
+        }
+    </style>
+</head >
+<body >
+<div id="app">
+    <div>
+<!--  跳过vue的编译过程 直接显示原始的标签内容    作用：跳过不用编译的部分，加快编译速度   -->
+        <p v-pre>{{test}}</p>
+    </div>
+    <p>-------------------------------------</p>
+    <div v-cloak>
+        <p>使用v-cloak 要配合css的属性选择器  先隐藏起来 等vue组件加载完后在渲染出来</p>
+    </div>
+    <p>-------------------------------------</p>
+    <div v-memo=[name]>
+        <p> v-memo：作用限制 只有当特定值发生改变，页面才会冲洗渲染</p>
+        <p>{{name}}</p>
+        <p>{{age}}</p>
+        <p>{{height}}</p>
+        <button @click="btn1">只有点击了这个按钮才会冲洗渲染点击按钮改变名字</button>
+        <button @click="btn2">点击按钮公改变年龄</button>
+    </div>
+<p>-------------------------------------</p>
+    <div>
+
+        <p>v-bind 绑定属性   语法糖[可省略直接写 :style  或:href 等] </p>
+        <p>
+            绑定基本属性
+            <img v-bind:src="imgurl" alt="" >
+        </p>
+
+            绑定class属性 :class="" 变量名  对应的class属性会添加到标签上<br/>
+            还可以定义一个布尔值来确定是否添加class<br/>
+            还能通过对象语法【通过一个布尔值来控制是否添加】 ---数组语法----对象数组语法
+        <ul>
+            <li class="a1" :class="classe">绑定class属性</li >
+            <!--  像表达式一样  成立就添加 不成立就不添加  可以通过按钮改变布尔值          -->
+            <li class="a1" :class={classe:booloo}>绑定class属性</li >
+            <li class="a1" :class= "booloo? classe :''">绑定class属性</li >
+            <!--   还能写成方法调用 最好写成按钮 -->
+            <button class="a1" :class= "getclass()">绑定class属性</button >
+            <!--   数组语法+表达式   -->
+            <li :class="['a1','b1', ccc1 , ista ?  'action':'']"></li>
+            <!--   数字语法+对象  -->
+            <li :class="['a1','b1','c1',{ action: ista, a1:true }]">数组语法</li>
+        </ul >
+        动态绑定style:也有对象和数组两种方式
+        原生html写法
+        <h2 style="color:red ;font-size:30px;">原生形式</h2>
+        <!--注意有-链接的属性  有改成驼峰命名或者 加引号  -->
+        <h2 :style="{color:fcolora,'font-size': fsiz+'px'}">对象形式</h2>
+        <h2 :style="[styobj,styobj1,{ margin: 20+'px'}]">这是以数组形式来进行绑定</h2>
+
+        动态绑定属性名<br>
+        v-bind:[name]   不要写死name        后面可以同data里面的属性进行改变
+
+        <p>可以将对绑定上去，用于组给组件传值</p>
+        <h2 :='popr'>hello world</h2>
+
+
+
+    </div>
+
+</div>
+
+
+</body >
+<script src="../js/vue.js"></script>
+<script >
+  const app=Vue.createApp({
+    data(){
+      return{
+        test:'测试展示数据',
+        name:'账上',
+        age:22,
+        height:1.88,
+
+        //动态绑定链接
+        imgurl:'https://wallhaven.cc/w/kx82d6',
+
+        //动态绑定属性
+        classe:"aa bb cc",
+        boolo:true,
+
+        //对象语法
+        claadx:{
+          color:'green',
+          fontSize:'25px'
+        },
+
+
+        popr: {
+          name: 'why', age: 19, sg: 1.8
+        }
+
+      }
+    },
+    methods:{
+      btn1(){
+        this.name='黄运彬'
+      },
+      btn2(){
+        this.age=23
+      },
+      //返回class对象
+      getclass(){
+        return "aa bb cc  dd"
+      }
+    }
+  })
+  app.mount('#app')
+
+</script>
+</html >

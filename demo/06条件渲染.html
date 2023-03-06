@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >条件渲染---【v-if】-【v-else】-【v-else-if】-【v-show】</title >
+</head >
+<body >
+
+<div id="app">
+<!--    判断 name 里是否有信息 有就渲染没有就不渲染-->
+    <ul v-if="names.length>0">
+        <li v-for="item in names">{{item}}</li >
+    </ul >
+    <h2 v-else>name当前没有数据</h2>
+
+
+<!-- 判断对象里是否存在数据   使用Object.keys(obj).length  可以判断对象是否有key值 -->
+    <div v-if="Object.keys(obj1).length">
+        <p>{{obj1.a}}</p>
+        <p>{{obj1.b}}</p>
+        <p>{{obj1.c}}</p>
+    </div>
+
+
+<!--    temolate元素 可以将整体包含起来 最后完成后界面上是不会出现的   是一个不可见的包裹元素，不会被渲染出来-->
+<template v-if="Object.keys(obj1).length">
+    <h2>
+        <ul >
+            <li >{{obj1.a}}</li >
+            <li >{{obj1.b}}</li >
+            <li >{{obj1.c}}</li >
+        </ul >
+    </h2>
+</template>
+
+
+</div>
+
+</body >
+<script src="../js/vue.js"></script>
+<script>
+    const app=Vue.createApp({
+      data(){
+        return{
+          names:["aa","bb","cc","dd","ee"],
+          obj1:{a:1,b:2,c:3}
+        }
+      },
+      methods: {
+
+      }
+    })
+    app.mount('#app')
+</script>
+</html >
