@@ -23,9 +23,10 @@
         <p>{{obj1.b}}</p>
         <p>{{obj1.c}}</p>
     </div>
+<!--    小结：v-if 是惰性的  套件为false 内容不会被渲染 甚至会被销毁-->
 
 
-<!--    temolate元素 可以将整体包含起来 最后完成后界面上是不会出现的   是一个不可见的包裹元素，不会被渲染出来-->
+<!--    template元素 可以将整体包含起来 最后完成后界面上是不会出现的   是一个不可见的包裹元素，不会被渲染出来-->
 <template v-if="Object.keys(obj1).length">
     <h2>
         <ul >
@@ -35,6 +36,14 @@
         </ul >
     </h2>
 </template>
+<!--
+   v-show  和v-if看起来用法一致
+   区别：   1.不支持template[template是不存在的 只是有个包裹效果 无法设置display:none属性 ]
+           2.不可以哈v-else一起使用
+           3.v-if会销毁 v-show则是添加display:none
+
+    适用场景  可能反复出现的  频繁切换的
+ -->
 
 
 </div>
