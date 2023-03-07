@@ -5,9 +5,117 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
     <meta http-equiv="X-UA-Compatible" content="ie=edge" >
-    <title >Document</title >
+    <title >v-for【重要】</title >
 </head >
 <body >
+<div id="app">
+<!--    基本使用-->
+    <div>
+        <p>基本格式  v-for="item in 数组"</p>
+        <p>数组  通常来自data或 prop [还有其他]</p>
+        <p>itme 给数组的每个元素起一个别名</p>
+        <p>还想获得元素对应的索引   v-for="（item，index) in 数组" </p>
+        <p>注意：索引值在item元素后</p>
+        <ul >
+            <li v-for="(item,index) in mover" >{{item}} -序号为{{index+1}}</li >
+        </ul >
+        <!--  遍历数组对象-->
+        <ul >
+            <li v-for="(item,index) in std" >姓名：{{item.names}} ----年龄{{item.age}}---序号{{index+1}}</li >
+        </ul >
+
+    <!--  可以遍历很多东西 如对象  字符串  数字（从1开始）  以及其他可迭代对象-->
+    </div>
+
+<!--  数组更新检测-->
+    <div>
+        <p>vue将真听数组的方法进行了包裹 能触发视图的更新</p>
+        方法有
+        <ul>
+            <li>push   最后面添加</li>
+            <li>pop    最后面删除</li>
+            <li>shift  删除第一个</li>
+            <li>unshift头部添加</li>
+            <li>splice 可添加可删除可替换三个值 （索引，删除元素数量，替换元素） </li>
+            <li>sort   排序</li>
+            <li>reverse反转</li>
+        </ul>
+        <!--
+        使用方法 可以做成点击事件
+        @clikc="func1"
+
+        在methods里创建事件
+        func1(){
+        this.数组名.pop() ----删除末尾元素
+        }
+        -->
+        <p>只能侦听改变原数组的操作 不改变不行  如map[映射]-- </p>
+        <p>const newarr=this.数组.map(item=>item +"why")</p>
+        <p>没改变原来数组，而是赋值给新数组不生效</p>
+
+    </div>
+<!--key属性的作用-->
+    <div>
+        <ul  >
+            <!-- key要求唯一  一般是id -->
+            <li v-for="(item,key) in letters" :key="key">{{item}}</li >
+        </ul >
+
+        <p>引出vnode概念   本质是一个对象  在vue里 无论是元素或是组件表的都是一个vnod; </p>
+        <p>template--->vnode---->真是dom</p>
+        <p>虚拟dom:  一个div有很多元素 每个元素就会形成一个个vnode---vnode又形成了一个vnode tree </p>
+        <p>v-node-->树结构-->虚拟(virtual)dom--->转化成真实dom--->渲染到浏览器</p>
+
+        <p>产生的意义：1.跨平台开发  2.处理deff算法</p>
+
+        <p>有key 当在节点中插入新节点是 会根据key值进行比较  尽可能去复用 <br>
+            而不是【插入数据后删除全部重新创建】<br>
+            或是在改变插入位置的值 再给后面的位置重新赋值
+        </p>
+    </div>
+
+
+
+
+
+
+</div>
+
 
 </body >
+<script src="../js/vue.js"></script>
+<script>
+  const app=Vue.createApp({
+    data(){
+      return{
+        mover:["飞出个未来","企鹅总动员","功夫熊猫1","功夫熊猫2","功夫熊猫3"],
+        //数组存放对象
+        std:[
+          {
+            names:'张三',
+            age:18
+          },
+          {
+            names:'李四',
+            age:10
+          },
+          {
+            names:'王五',
+            age:33
+          },
+          {
+            names:'赵六',
+            age:22
+          },
+        ],
+        letters:["a","b","c","d","e","f","g","h"]
+      }
+    },
+    methods: {
+
+
+    }
+  })
+  app.mount('#app')
+</script>
 </html >
