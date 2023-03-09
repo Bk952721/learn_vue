@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >optionApi</title >
+</head >
+<body >
+<div id="app">
+    <div>
+        <p>复杂数据处理方式：</p>
+        <ul>
+            <li>正常情况下：直接使用插值语法显示data中的数据</li>
+            <li>但某些情况下：如对多个数据进行运算，三元表达式决定结果</li>
+            <li>方便时实现但是 难维护</li>
+        </ul>
+        <p>处理方法：1.methods ---弊端所有data使用过程都会变成一个方法的调用  </p>
+        <p>处理方法：2.computed ---任何包含复杂相应的复杂逻辑 都应该使用计算属性
+            <br > 也是option里的一个api 对象形式，里面书写的都是函数 使用时不需要加（）
+            <br >且有缓存 执行完函数会缓存 在数据没发生变化时，不需要重新变化，但依赖数据变化会重新计算
+        </p>
+        <p>{{allnanem}}</p>
+    </div>
+    <div>
+        <p>侦听器 watch </p>
+        <p>希望在代码逻辑中侦听某个数据的变化---》</p>
+        <p>{{message}}</p>
+        <button @click="btnn1">按钮</button>
+        <p>使用案例  在imput中输入内容 获取最新数据  到服务器中去搜索</p>
+        <p>函数不写值  默认获取两个参数  一个新值（newvalue） 一个旧值(oldvalue)</p>
+        <p>侦听选项：默认不会深度监听 --无论是修改对象赋值新对象可以监听到  但是修改原来对象中的某个就监听不了了</p>
+        <p> 改成深度监听就可以了----修改方法 看源码注释  </p>
+        <!--
+        watch:{
+        需要深度监听的属性：{
+                handler（newValue,oldValut）
+                {
+                console.log(newValue,oldValut)
+                },
+                deep:true;----变成深度监听
+
+                immediate:true;----进一步侦听  第一次渲染页面出现数据就开始侦听
+            }
+        }  -->
+        <p>此外还可以使用vue生命周期函数来进行侦听</p>
+</div>
+</div>
+
+</body >
+<script src="../js/vue.js"></script>
+<script>
+    const app =Vue.createApp({
+      data(){
+        return{
+          firstname:"kk",
+          lastname:"abc",
+          message:"hello world"
+        }
+      },
+      methods:{
+        btnn1(){
+          this.message="改变内容"
+        }
+
+      },
+      computed:{
+        allnanem(){
+          return this.firstname+ "---"+this.lastname
+        }
+
+      },
+      //侦听属性----可以在这监听到数据的变化  从而执行一定的逻辑
+      watch:{
+        //默认有两个参数 一个新值  一个旧值
+        message(newValue,oldvalue){
+          //如果是对象类型  获取的是代理对象  proxy
+          console.log("message发生了变化");
+          console.log(`新为----${newValue}`);
+          console.log(`旧值----${oldvalue}`);
+        //想要获取原始对象
+        //  1.利用...运算符  展开对象  赋值给新对象 返回的也是新对象
+          //...扩展运算符----在函数调用/数组构造时，将数组表达式或者string在语法层面展开；
+          // 还可以在构造字面量对象时将对象表达式按照“key-value”的方 式展开。
+        // 2.借助 vue.toRaw  这样 console.log(Vue.toRaw(newValue) )
+
+        }
+      }
+    })
+    app.mount('#app')
+</script>
+</html >
