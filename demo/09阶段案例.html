@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >图书馆案例</title >
+</head >
+<body >
+    <div id="app">
+        <table>
+            <tr>
+                <th>序号</th>
+                <th>书名</th>
+                <th>日期</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(item ,index) in books" :key="item.id">
+                <td>{{index+1}}</td>
+                <td>{{item.names}}</td>
+                <td>{{item.days}}</td>
+                <td>{{item.price}}</td>
+                <td>
+                    <button @click="bt1(item)">+</button>
+                    {{item.num}}
+                    <button :disabled="item.num==0? true :false"  @click="bt2(item)">-</button>
+                </td>
+                <td>
+                    <button @click="del(item,index)">移除</button>
+                </td>
+
+            </tr>
+        </table>
+        <div>总价格{{allprince}}</div>
+
+    </div>
+
+</body >
+<script src="../js/vue.js"></script>
+<script >
+    const app =Vue.createApp({
+      data(){
+        return{
+          books:[
+            {id:1,names:'书本1',days:'2006-1',price:99,num:1},
+            {id:2,names:'书本2',days:'2006-3',price:20,num:1},
+            {id:3,names:'书本3',days:'2006-5',price:18,num:1},
+            {id:4,names:'书本4',days:'2006-6',price:100,num:1},
+          ]
+        }
+      },
+      methods:{
+        bt1(item){
+          return  item.num++
+        },
+        bt2(item){
+          return  item.num--
+        },
+        del(item,index){
+          this.books.splice(index,1)
+        }
+      }
+      ,
+      computed:{
+        allprince(){
+          return this.books.reduce((prevalue,item)=>{return prevalue+item.price*item.num},0)
+        }
+      }
+    })
+    app.mount('#app')
+</script>
+</html >

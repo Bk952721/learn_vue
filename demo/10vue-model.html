@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >v-model</title >
+</head >
+<body >
+<div id="app">
+    <div>
+        v-model：用于双向绑定如用户登录注册时提价的账号密码 <br >
+        或者用户检索 创建更新信息时提交的数据【默认绑定imput事件】
+        <p>可在表单 imput textarea以及select元素上创建双向数据绑定</p>
+        <p>能根据控件自动选取正确方法更新元素</p>
+        本质：语法糖--监听用户输入事件更新数据做特殊处理
+        <p><strong>双向绑定：简单理解就是用户更改数据 data里面的数据也跟着修改，存起来发送网络请求</strong>  </p>
+    </div>
+    <input type="text" v-model="message">
+
+    input 的value改变时  下面展示的也跟着改变
+    <p>{{message}}</p>
+
+    <div>
+        绑定表单  ：  绑定textarea和绑定input基本一致 <br >
+                      绑定checkbox【单选框】v-model即为布尔值<br >
+                      当是多个复选框时，因为可以选中多个，所以对应的data中属性是一个数组[必须绑定一个value值]<br >
+                      当选中某一个时，就会将input的value添加到数组中<br >
+        <label>
+            <input type="checkbox" v-model="ai" value="a1">爱好1
+        </label>
+        <label>
+            <input type="checkbox" v-model="ai" value="a2">爱好2
+        </label>
+        <label>
+            <input type="checkbox" v-model="ai" value="a3">爱好3
+        </label>
+        <label>
+             <input type="checkbox" v-model="ai" value="a4">爱好4
+        </label>
+        <p>展示{{ai}}</p>
+
+        <p>绑定单选框 ridio  v-model绑定同一个值  再给单选按钮一个value来记录</p>
+
+        <p>绑定下拉框  select   默认是单选 可以添加multiple属性变成多选---- option  </p>
+        <p>本事就可以单选和多选  单选绑定一个值  多选绑定一个数组</p>
+
+    </div>
+
+    <div>
+        值绑定：写选框时 ，应该是从服务区过来的 不会写死的如
+        <select multiple size="3">
+            <option v-for="(item,index) in fruits"
+                    :key="item.value"
+                    :value="item.value"
+            >
+                {{item.text}}
+            </option>
+        </select>
+    </div>
+
+    <div>
+        常见修饰符   lazy  在v-model后加  .lazy  绑定change事件  延迟v-model的绑定 在提交时才会触发双向绑定 <br>
+        number 将内容转化成数字类型---当你在表达输入数据时 默认回变成string类型  要想他变成数字类加number<br>
+        进入判断的话自动将string转出布尔类型 <br >
+        .trim  在绑定值前自动去除首尾的空格
+    </div>
+
+
+</div>
+
+</body >
+<script src="../js/vue.js"></script>
+<script>
+  const app=Vue.createApp({
+    data(){
+      return{
+        message:"hello ",
+        ai:[],
+        fruits:[
+          {value:'a',text:'苹果'},
+          {value:'b',text:'雪梨'},
+          {value:'c',text:'草莓'},
+          {value:'d',text:'香蕉'},
+        ]
+      }
+    },
+  })
+  app.mount('#app')
+</script>
+</html >

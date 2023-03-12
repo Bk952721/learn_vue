@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" >
+<head >
+    <meta charset="UTF-8" >
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" >
+    <title >组件</title >
+</head >
+<body >
+
+<div>
+    全局组件：只要在通过app.component注册的组件在任何地方都可以使用；
+    局部组件：  1.确定组件使用位置   2.在要注册的位置如定义的app跟组件里  使用conponents：{}<br >r
+    {} 里面书写和跟组格式相同 可以添加各种api [但要注意组件名]如show:{ template:组件内容,data(){} 等等。。。}
+
+</div>
+</body >
+<script src="./js/vue.js"></script>
+<script >
+//要使用组件 就要全局注册一个组件
+
+//过程 创建app根组件并挂载     有子组件 使用 component加载进去成为全局组件 就能复用了
+
+//1.创建app跟组件
+//     const app={};
+
+
+
+//2.创建app ---通常1-3-5同时进行【创建同时要挂载】
+    const app=Vue.createApp({})
+//3定义一个子组件  里面也写html格式的字符串  也可以在body里使用template  封装好  在用一个含id的div包裹
+//再在子组件里  的template='#自己定义的div的id即可'
+
+const show={
+};
+
+
+// 4全局一个全局组件---格式  app.component(组件名,组件)  自己定义
+app.component(组件名,show)
+
+// 5 挂载
+app.mount('#app')
+
+</script>
+</html >
