@@ -1,10 +1,10 @@
 <template>
-<buchong />
-
+  <buchong />
 </template>
 
 <script>
-import buchong from "../src/learn_01/vue项目文件补充说明"
+import buchong from "./vue项目文件补充说明"
+
 export default {
   name: 'App',
   components: {
